@@ -69,7 +69,7 @@ public class Bob {
                 if (line.toLowerCase().startsWith("mark ")) {
                     try  {
                         String[] parts = line.split(" ");
-                        int taskNum = Integer.parseInt(parts[1]); //Convert the string digit to int digits
+                        int taskNum = Integer.parseInt(parts[1]); //Convert the string digit to int digit
 
                         //Check if the task number is within the listed range
                         if (taskNum >= 1 && taskNum <= tasks.size()) {
