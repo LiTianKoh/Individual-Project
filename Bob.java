@@ -1,10 +1,12 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.ArrayList;
 
 public class Bob {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>(); //Initialise dynamic array
         String line;
 
         String logo =
@@ -29,14 +31,27 @@ public class Bob {
 
             //Check if it's not Bye
             if (!line.equalsIgnoreCase("Bye")) {
-                Matcher matcher = pattern.matcher(line);
-
+                //Lists out the tasks when list is inputted
+                if (line.equalsIgnoreCase("list")) {
+                    if (tasks.isEmpty()) {
+                        System.out.println("    No tasks in your list.");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println("    " + (i + 1) + ". " + tasks.get(i));
+                        }
+                    }
+                    System.out.println("    ___________________________");
+                    continue;
+                }
                 //Check if the line input consist of handsome or beautiful
-                if (matcher.find()) {
+                else if (pattern.matcher(line).find()) {
                     System.out.println("    Nonono, you are ;)");
                     System.out.println("    ___________________________");
-                } else {
-                    System.out.println("    " + line);
+                }
+                //Otherwise, add a task
+                else {
+                    tasks.add(line);
+                    System.out.println("    " + "added: " + line);
                     System.out.println("    ___________________________");
                 }
             }
