@@ -49,7 +49,7 @@ public class Bob {
                 if (line.toLowerCase().startsWith("todo ")) {
                     String description = line.substring(5).trim();
                     if (description.isEmpty()) {
-                        System.out.println("    Error: Todo decription cannot be empty.");
+                        System.out.println("    Error: Todo description cannot be empty.");
                     } else {
                         tasks.add(new Todo(description)); //Add the new task into the task array
                         System.out.println("    Got it. I've added this task:");
@@ -83,7 +83,7 @@ public class Bob {
                     String rest = line.substring(6).trim(); //6 because 'event ' is 6 char long
                     String[] parts = rest.split(" /from | /to");
                     if (parts.length < 3) {
-                        System.out.println("    Error: Event ,ust have description, /from and /to times.");
+                        System.out.println("    Error: Event must have description, /from and /to times.");
                     } else {
                         String description = parts[0].trim();
                         String start = parts[1].trim();
@@ -110,7 +110,7 @@ public class Bob {
                             System.out.println("    Nice! I've marked this task as done: ");
                             System.out.println("    " + taskNum + "." + task.toString());
                         } else {
-                            System.out.println("    Error: Task number " + taskNum + "does not exist.");
+                            System.out.println("    Error: Task number " + taskNum + " does not exist.");
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("    Error: Please specify a valid task number.");
@@ -134,7 +134,7 @@ public class Bob {
                             System.out.println("    Ok, I've marked this task as not done yet: ");
                             System.out.println("    " + taskNum + "." + task.toString());
                         } else {
-                            System.out.println("    Error: Task number " + taskNum + "does not exist.");
+                            System.out.println("    Error: Task number " + taskNum + " does not exist.");
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("    Error: Please specify a valid task number.");

@@ -1,0 +1,166 @@
+list
+todo read book
+todo 
+todo    (with spaces)
+todo exercise daily
+deadline submit report /by 2024-09-30
+deadline submit report/by 2024-09-30 (no space)
+deadline submit report /by
+deadline /by 2024-09-30
+deadline
+deadline return library books /by tomorrow 5pm
+event team meeting /from 2pm /to 4pm
+event team meeting/from 2pm/to 4pm
+event team meeting /from /to
+event /from 2pm /to 4pm
+event
+event conference /from 9am /to 6pm
+mark 1
+mark 2
+mark 0
+mark -1
+mark 100
+mark abc
+mark
+mark 1 2 3
+unmark 1
+unmark 2
+unmark 0
+unmark -5
+unmark 999
+unmark xyz
+unmark
+You are handsome
+You are BEAUTIFUL
+you are handsome and beautiful
+handsome bob
+Beautiful day
+delete 1
+remove 2
+find book
+search meeting
+help
+exit
+quit
+end
+complete 1
+done 2
+show all
+show
+print list
+display tasks
+add task: learn java
+task: exercise
+priority: high
+due: tomorrow
+from: monday
+to: friday
+at: office
+with: team
+about: project
+~
+!
+@
+#
+$
+%
+^
+&
+*
+(
+)
+_
++
+=
+{
+}
+[
+]
+|
+\
+:
+;
+"
+'
+<
+>
+?
+,
+.
+/
+`
+12345
+67890
+a b c d e
+verylonginputwithoutspacesthatisverylongandgoesonandonandontestingthelengthlimit
+TASK ONE
+TODO TWO
+DEADLINE THREE
+EVENT FOUR
+mark todo
+unmark event
+deadline event /from /to /by
+event deadline /by 2024
+todo /by tomorrow
+todo /from 2pm
+todo /to 4pm
+deadline task /from 2pm /to 4pm
+event task /by tomorrow
+mark first
+unmark last
+list all tasks
+list tasks
+list -a
+list --all
+show completed
+show pending
+filter done
+filter not done
+sort by date
+sort by name
+sort by priority
+update 1
+edit 2
+modify 3
+change 4
+set priority 1 high
+set reminder 2 5pm
+add note to 1
+add tag important
+clear all
+clear
+reset
+start over
+new list
+archive
+backup
+save
+load
+import
+export
+sync
+login
+logout
+register
+profile
+settings
+preferences
+theme dark
+theme light
+language english
+language中文
+timezone GMT+8
+notify on
+notify off
+remind me
+alarm
+timer
+stopwatch
+calendar
+schedule
+planner
+organizer
+assistant
+bot
+AI
+machine learning
