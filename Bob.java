@@ -49,7 +49,7 @@ public class Bob {
                 if (line.equalsIgnoreCase("todo") || line.toLowerCase().startsWith("todo ")) {
                     if (line.equalsIgnoreCase("todo")) {
                         System.out.println("    Error: Todo description cannot be empty.");
-                        System.out.println("    __________________________");
+                        System.out.println("    ___________________________");
                         continue;
                     }
 
