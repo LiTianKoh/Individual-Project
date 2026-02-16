@@ -1,3 +1,5 @@
+package bob;
+
 public class Logo {
     private static final String SEPARATOR = "    ___________________________";
     private static final String INDENT = "    ";

@@ -1,3 +1,5 @@
+package bob;
+
 public class BobExceptions {
 
     // Error messages

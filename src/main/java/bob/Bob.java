@@ -1,6 +1,7 @@
+package bob;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.ArrayList;
 
 public class Bob {
@@ -121,7 +122,7 @@ public class Bob {
     private static void handleMark(ArrayList<Task> tasks, int taskNum, boolean markAsDone) {
         BobExceptions.validateTaskNumber(taskNum, tasks.size());
         Task task = tasks.get(taskNum - 1);
-        task.isDone = markAsDone;
+        task.setDone(markAsDone);  // Using setter method instead of direct access
 
         if (markAsDone) {
             System.out.println(INDENT + "Nice! I've marked this task as done: ");
