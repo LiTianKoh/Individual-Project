@@ -41,8 +41,8 @@ public class Bob {
 
         // Initialize storage and load tasks
         try {
-            Storage.initializeDataFile();
-            tasks = Storage.loadTasks();
+            Save.initializeDataFile();
+            tasks = Save.loadTasks();
             System.out.println(INDENT + "Loaded " + tasks.size() + " tasks from save file.");
         } catch (IOException e) {
             System.out.println(INDENT + "Warning: Could not load tasks from file. Starting with empty list.");
@@ -97,7 +97,7 @@ public class Bob {
                     // Save tasks if the list was modified
                     if (listChanged) {
                         try {
-                            Storage.saveTasks(tasks);
+                            Save.saveTasks(tasks);
                         } catch (IOException e) {
                             System.out.println(INDENT + "Warning: Could not save tasks to file.");
                         }
@@ -112,7 +112,7 @@ public class Bob {
 
         // Final save before exit
         try {
-            Storage.saveTasks(tasks);
+            Save.saveTasks(tasks);
             System.out.println(INDENT + "Tasks saved successfully.");
         } catch (IOException e) {
             System.out.println(INDENT + "Warning: Could not save tasks before exit.");
