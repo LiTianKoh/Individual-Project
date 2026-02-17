@@ -1,0 +1,6 @@
+===================
+Taskings
+===================
+E | [ ] | house visit | 1500 to 1900
+D | [✓] | finsih hw | 2000
+T | [ ] | run to the gym
