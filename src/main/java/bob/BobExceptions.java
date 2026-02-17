@@ -40,7 +40,7 @@ public class BobExceptions {
             return parseMarkUnmark(userInput, "unmark");
         } else if (trimmedLine.equals("list")) {
             return new String[]{"list"};
-        } else if (trimmedLine.equals("delete") || trimmedLine.startWith("delete ")) {
+        } else if (trimmedLine.equals("delete") || trimmedLine.startsWith("delete ")) {
             return parseDelete(userInput);
         }
 
