@@ -25,6 +25,7 @@ public class Save {
         // Create directory if it doesn't exist
         if (!Files.exists(dataDir)) {
             Files.createDirectory(dataDir);
+            System.out.println("Created data directory");
         }
 
         // Create file if it doesn't exist
@@ -34,13 +35,13 @@ public class Save {
             FileWriter writer = new FileWriter(FILE_PATH);
             writer.write(HEADER + System.lineSeparator());
             writer.close();
+            System.out.println("Created new save file");
         }
     }
 
     /**
-     * Loads tasks from the save file
-     * @return ArrayList of tasks loaded from file
-     * @throws IOException if file cannot be read
+     * LOADS tasks from the save file
+     * This is what you're asking about!
      */
     public static ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -48,46 +49,51 @@ public class Save {
 
         // If file doesn't exist, return empty list
         if (!file.exists()) {
+            System.out.println("No save file found, starting with empty list");
             return tasks;
         }
 
+        System.out.println("Loading tasks from: " + FILE_PATH);
         Scanner scanner = new Scanner(file);
+        int lineNumber = 0;
         boolean headerPassed = false;
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
+            lineNumber++;
 
-            // Skip empty lines and header
-            if (line.isEmpty() || line.equals("===================") || line.equals("Taskings")) {
+            // Skip empty lines
+            if (line.isEmpty()) {
                 continue;
             }
 
-            // Once we've passed the header, parse tasks
-            if (!headerPassed) {
-                headerPassed = true;
+            // Skip header lines
+            if (line.equals("===================") || line.equals("Taskings")) {
                 continue;
             }
 
+            // Once we've passed the header section, parse tasks
             try {
                 Task task = parseTaskFromLine(line);
                 if (task != null) {
                     tasks.add(task);
+                    System.out.println("Loaded: " + task); // Debug print
                 }
             } catch (Exception e) {
-                // Skip corrupted lines
-                System.out.println("Warning: Skipping corrupted line: " + line);
+                System.out.println("Warning: Skipping corrupted line " + lineNumber + ": " + line);
             }
         }
         scanner.close();
+
+        System.out.println("Successfully loaded " + tasks.size() + " tasks");
         return tasks;
     }
 
     /**
-     * Saves tasks to the file with the specified format
-     * @param tasks The list of tasks to save
-     * @throws IOException if file cannot be written
+     * Saves tasks to the file
      */
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        System.out.println("Saving " + tasks.size() + " tasks to " + FILE_PATH);
         FileWriter writer = new FileWriter(FILE_PATH);
 
         // Write header
@@ -95,17 +101,17 @@ public class Save {
 
         // Write each task
         for (Task task : tasks) {
-            writer.write(taskToFileString(task) + System.lineSeparator());
+            String line = taskToFileString(task);
+            writer.write(line + System.lineSeparator());
+            System.out.println("Saved: " + line); // Debug print
         }
 
         writer.close();
+        System.out.println("Save complete!");
     }
 
     /**
-     * Converts a Task to the specified string format
-     * Format: T | [✓] | description
-     *         D | [ ] | description | date
-     *         E | [✓] | description | period
+     * Converts a Task to string format for saving
      */
     private static String taskToFileString(Task task) {
         String status = task.isDone() ? "[✓]" : "[ ]";
@@ -124,10 +130,11 @@ public class Save {
 
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return String.format("E | %s | %s | %s",
+            return String.format("E | %s | %s | %s to %s",
                     status,
                     event.getDescription(),
-                    event.getStart() + " to " + event.getEnd());
+                    event.getStart(),
+                    event.getEnd());
         }
 
         return "";
@@ -135,33 +142,54 @@ public class Save {
 
     /**
      * Parses a line from the save file into a Task object
+     * This is the KEY method for loading!
      */
     private static Task parseTaskFromLine(String line) {
+        // Split by " | " (space-pipe-space)
         String[] parts = line.split(" \\| ");
+
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid format: " + line);
+        }
+
         String type = parts[0];
-        boolean isDone = parts[1].equals("[✓]");
+        String statusStr = parts[1];
+        boolean isDone = statusStr.equals("[✓]");
 
         switch (type) {
-        case "T":
-            Todo todo = new Todo(parts[2]);
-            todo.setDone(isDone);
-            return todo;
+        case "T": // Todo
+            if (parts.length >= 3) {
+                Todo todo = new Todo(parts[2]);
+                todo.setDone(isDone);
+                return todo;
+            }
+            break;
 
-        case "D":
-            Deadline deadline = new Deadline(parts[2], parts[3]);
-            deadline.setDone(isDone);
-            return deadline;
+        case "D": // Deadline
+            if (parts.length >= 4) {
+                Deadline deadline = new Deadline(parts[2], parts[3]);
+                deadline.setDone(isDone);
+                return deadline;
+            }
+            break;
 
-        case "E":
-            // Handle period format "start to end"
-            String period = parts[3];
-            String[] timeParts = period.split(" to ");
-            Event event = new Event(parts[2], timeParts[0], timeParts[1]);
-            event.setDone(isDone);
-            return event;
+        case "E": // Event
+            if (parts.length >= 4) {
+                // Handle "start to end" format
+                String period = parts[3];
+                String[] timeParts = period.split(" to ");
+                if (timeParts.length >= 2) {
+                    Event event = new Event(parts[2], timeParts[0], timeParts[1]);
+                    event.setDone(isDone);
+                    return event;
+                }
+            }
+            break;
 
         default:
-            return null;
+            throw new IllegalArgumentException("Unknown task type: " + type);
         }
+
+        return null;
     }
 }
