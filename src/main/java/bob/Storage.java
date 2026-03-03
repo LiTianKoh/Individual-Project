@@ -9,15 +9,31 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles all file storage operations for the Bob application.
+ * This class manages saving tasks to and loading tasks from a file,
+ * ensuring data persistence between sessions.
+ */
 public class Storage {
     private static final String DATA_DIR = "data";
     private static final String HEADER = "===================\nTaskings\n===================";
     private String filePath;
 
+    /**
+     * Creates a storage handler for the specified file path.
+     *
+     * @param filePath The path to the save file where tasks will be stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Initializes the storage by creating the data directory and save file if they don't exist.
+     * Creates the directory structure and writes the initial header to a new file.
+     *
+     * @throws IOException if an I/O error occurs during directory or file creation
+     */
     public void initialize() throws IOException {
         Path dataDir = Paths.get(DATA_DIR);
         Path dataFile = Paths.get(filePath);
@@ -36,6 +52,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the save file and reconstructs them as Task objects.
+     * Reads the file line by line, skips header and empty lines, and parses
+     * each valid task line into the corresponding Task subclass.
+     *
+     * @return An ArrayList of tasks loaded from the file. Returns an empty list
+     *         if the file doesn't exist or contains no valid tasks.
+     * @throws IOException if an I/O error occurs during reading
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -66,6 +91,14 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all current tasks to the file in a human-readable format.
+     * Writes the header followed by each task converted to a string representation.
+     * Overwrites any existing content in the file.
+     *
+     * @param tasks The list of tasks to save to the file
+     * @throws IOException if an I/O error occurs during writing
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
 
@@ -79,6 +112,16 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Converts a Task object into a string format suitable for file storage.
+     * The format differs based on the task type:
+     * - Todo: "T | [status] | description"
+     * - Deadline: "D | [status] | description | due date"
+     * - Event: "E | [status] | description | start to end"
+     *
+     * @param task The task to convert to a string representation
+     * @return A formatted string representing the task for file storage
+     */
     private String taskToFileString(Task task) {
         String status = task.isDone() ? "[✓]" : "[ ]";
 
@@ -106,6 +149,21 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Parses a line from the save file and reconstructs the corresponding Task object.
+     * This method handles the inverse operation of {@link #taskToFileString}.
+     * It splits the line by the " | " delimiter and creates the appropriate task type
+     * based on the first character (T, D, or E).
+     *
+     * The expected formats are:
+     * - Todo: "T | [status] | description"
+     * - Deadline: "D | [status] | description | due date"
+     * - Event: "E | [status] | description | start to end"
+     *
+     * @param line A single line from the save file representing one task
+     * @return The reconstructed Task object, or null if the line format is invalid
+     * @throws IllegalArgumentException if the line format is corrupted or unknown
+     */
     private Task parseTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
 

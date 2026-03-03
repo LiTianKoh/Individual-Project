@@ -1,7 +1,18 @@
 package bob;
 
+/**
+ * Parses user input into executable commands.
+ * The Parser interprets raw input strings and creates the appropriate Command objects.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and returns the corresponding Command object.
+     *
+     * @param userInput The raw input string from the user
+     * @return A Command object representing the user's intended action
+     * @throws IllegalArgumentException if the input is invalid or cannot be parsed
+     */
     public Command parseCommand(String userInput) throws IllegalArgumentException {
         String trimmedInput = userInput.trim();
         

@@ -2,6 +2,11 @@ package bob;
 
 import java.util.ArrayList;
 
+/**
+ * Encapsulates a list of tasks and provides operations to manipulate them.
+ * This class serves as the in-memory collection of tasks with methods for
+ * adding, removing, marking, and searching tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -30,6 +35,13 @@ public class TaskList {
         task.setDone(isDone);
     }
 
+    /**
+     * Finds and returns all tasks whose descriptions contain the given keyword.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for
+     * @return An ArrayList of tasks matching the keyword
+     */
     public ArrayList<Task> findTasks(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
         String lowerKeyword = keyword.toLowerCase();

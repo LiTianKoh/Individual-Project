@@ -2,11 +2,18 @@ package bob;
 
 import java.util.Scanner;
 
+/**
+ * Handles all user interface interactions for the Bob application.
+ * This class manages input reading and output display with consistent formatting.
+ */
 public class Ui {
     private Scanner scanner;
     public static final String SEPARATOR = "    ___________________________";
     public static final String INDENT = "    ";
 
+    /**
+     * Creates a new UI handler and initializes the input scanner.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
