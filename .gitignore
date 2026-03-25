@@ -15,3 +15,12 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+# IDE files
+.idea/
+*.iml
+.DS_Store
+
+# Compiled files
+*.class
+bin/
+out/
